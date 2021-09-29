@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <div class="input-group mb-3">
+
+            <div class="input-group-text bg-white">
+                <i class="fa fa-car" [class.green-icon]="this.form.get('brand').valid" [class.red-icon]="this.form.get('brand').invalid && this.form.get('brand').touched"></i>
+            </div>
+
+            <select type="text" class="form-control" formControlName="brand" (change)="getModelsByBrandId()">
+                <option *ngFor="let brand of brands" [ngValue]="brand" [selected]="brand.brand === car.brand">
+                    {{brand.brand}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="input-group mb-3">
+
+            <div class="input-group-text bg-white">
+                <i class="fa fa-car" [class.green-icon]="this.form.get('model').valid" [class.red-icon]="this.form.get('model').invalid && this.form.get('model').touched"></i>
+            </div>
+
+            <select type="text" class="form-control" formControlName="model" placeholder="Model">
+                <option *ngFor="let model of models" [ngValue]="model" [selected]="model.model === car.model">
+                    {{model.model}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-md-5">
+            <div class="form-group">
+                <div class="input-group">
+
+                    <div class="input-group-text bg-white">
+                        <i class="fas fa-calendar-minus" [class.green-icon]="this.form.get('year').valid" [class.red-icon]="this.form.get('year').invalid && this.form.get('year').touched"></i>
+                    </div>
+
+                    <input type="text" class="form-control" formControlName="year" placeholder="YYYY" type="number" min="1900" max="2021">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-7">
+            <div class="form-group">
+                <div class="input-group mb-4">
+
+                    <div class="input-group-text bg-white">
+                        <i class="fas fa-coins" [class.green-icon]="this.form.get('price').valid" [class.red-icon]="this.form.get('price').invalid && this.form.get('price').touched"></i>
+                    </div>
+
+                    <input type="text" class="form-control" formControlName="price" placeholder="Price" type="number">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-success btn-lg col-12" [disabled]="form.invalid" type="submit" (click)="saveCar()"><i class="fas fa-database"></i> Enviar</button>
+    </div>
+
+</form>

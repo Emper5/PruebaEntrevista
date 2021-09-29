@@ -1,0 +1,26 @@
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Brand</th>
+            <th scope="col">Model</th>
+            <th scope="col">Year</th>
+            <th scope="col">Price</th>
+            <!--<th scope="col" class="text-center">Edit</th>-->
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of carService.list">
+            <td>{{car.brand}}</td>
+            <td>{{car.model}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.price | currency:'EUR':'symbol':'.0-1'}}</td>
+            <!-- <td class="text-center">
+                <i class="far fa-edit fa lg text-info" style="cursor: pointer;" (click)="edit(car)"></i>
+            </td>-->
+            <td class="text-center">
+                <i class="far fa-trash-alt fa lg text-danger " style="cursor: pointer;" (click)="deleteCar(car.id)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
