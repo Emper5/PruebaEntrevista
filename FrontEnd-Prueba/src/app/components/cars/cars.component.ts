@@ -4,8 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-cars',
-  templateUrl: './cars.component.html',
-  styleUrls: ['./cars.component.css']
+  templateUrl: './cars.component.html'
 })
 export class CarsComponent implements OnInit{
 
