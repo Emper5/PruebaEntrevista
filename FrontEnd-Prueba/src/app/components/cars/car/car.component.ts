@@ -8,21 +8,18 @@ import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-car',
-  templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css']
+  templateUrl: './car.component.html'
 })
 export class CarComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   suscription: Subscription
   car: Car;
-  idCar = 0;
-
+ 
   brands: any[] = [];
   idBrand: number = 0;
   models: any[] = [];
-  selectedCar: Car;
-
+  
   constructor(private formBuilder: FormBuilder,
               private carService: CarService,
               private toastr: ToastrService,
@@ -47,8 +44,6 @@ export class CarComponent implements OnInit, OnDestroy {
         year: this.car.year,
         price: this.car.price
       });
-      this.selectedCar = data;
-      this.idCar = this.car.id;
     });
 
     this.brandsAndModelsService.getBrands()
