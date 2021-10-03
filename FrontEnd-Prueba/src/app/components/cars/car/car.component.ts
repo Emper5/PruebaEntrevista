@@ -77,8 +77,7 @@ export class CarComponent implements OnInit, OnDestroy {
       year: this.form.get('year').value,
       price: this.form.get('price').value
     }
-    console.log(car)
-    this.carService.saveCar(car).subscribe(data => {
+      this.carService.saveCar(car).subscribe(data => {
       this.toastr.success('Data saved correctly', 'The car was saved');
       this.carService.obtainCars();
       this.form.reset();
