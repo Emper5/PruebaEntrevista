@@ -23,7 +23,4 @@ export class CarListComponent implements OnInit {
     }
   }
 
-  // edit(car) {
-  //   this.carService.update(car);
-  // }
 }

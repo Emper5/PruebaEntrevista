@@ -20,23 +20,25 @@ export class CarComponent implements OnInit, OnDestroy {
   idBrand: number = 0;
   models: any[] = [];
   
+  
   constructor(private formBuilder: FormBuilder,
               private carService: CarService,
               private toastr: ToastrService,
-              private brandsAndModelsService: BrandsAndModelsService
-              ) { 
-    this.form = this.formBuilder.group({
-      id: 0,
-      brand: ['',[Validators.required]],
-      model: ['',[Validators.required]],
-      year: ['',[Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.min(1900), Validators.max(2021)]],
-      price: ['',[Validators.required, Validators.pattern('[0-9]*')]]
-    })
-  }
+              private brandsAndModelsService?: BrandsAndModelsService
+  ){ 
+      this.form = this.formBuilder.group({
+        id: 0,
+        brand: ['',[Validators.required]],
+        model: ['',[Validators.required]],
+        year: ['',[Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.min(1900), Validators.max(2021)]],
+        price: ['',[Validators.required, Validators.pattern('[0-9]*')]]
+      })
+    }
   
+
   ngOnInit(): void {
 
-    this.suscription = this.carService.obtainCar$().subscribe(data => {
+    this.suscription = this.brandsAndModelsService.obtainCar$().subscribe(data => {
       this.car = data;
       this.form.patchValue({
         brand: this.car.brand,
@@ -58,7 +60,6 @@ export class CarComponent implements OnInit, OnDestroy {
       })
 
   }
-
    
 
   ngOnDestroy() {
@@ -67,42 +68,23 @@ export class CarComponent implements OnInit, OnDestroy {
   
 
   saveCar() {
-      this.add();
-  }
-
-  add() {
     const car: Car = {
       brand: this.form.get('brand').value.brand,
       model: this.form.get('model').value.model,
       year: this.form.get('year').value,
       price: this.form.get('price').value
     }
+
       this.carService.saveCar(car).subscribe(data => {
-      this.toastr.success('Data saved correctly', 'The car was saved');
-      this.carService.obtainCars();
-      this.form.reset();
-      this.idBrand = 0;
-    })
+        this.toastr.success('Data saved correctly', 'The car was saved');
+        this.carService.obtainCars();
+        this.form.reset();
+        this.idBrand = 0;
+      })
   }
 
-  // edit() {
-  //   const car: Car = {
-  //     id: this.car.id,
-  //     brand: this.form.get('brand').value,
-  //     model: this.form.get('model').value,
-  //     year: this.form.get('year').value,
-  //     price: this.form.get('price').value,
-  //   }
-  //   this.carService.updateCar(this.idCar, car).subscribe(data => {
-  //     this.toastr.info("Data updated correctly", "The car was updated");
-  //     this.carService.obtainCars();
-  //     this.form.reset();
-      
-  //   })
 
-    
-  //}
-  getModelsByBrandId() {
+    getModelsByBrandId() {
     const brand = this.form.get('brand').value;
     this.brandsAndModelsService.getmodels(brand.id)
         .subscribe(data => {
