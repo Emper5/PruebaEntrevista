@@ -14,7 +14,8 @@ describe('Form', () => {
 
     } );
 
-    it('Must create a form with 4 items', () => {
+
+    it('Must create a form with 4 items.', () => {
         expect( component.form.contains('brand')).toBeTruthy();
         expect( component.form.contains('model')).toBeTruthy();
         expect( component.form.contains('year')).toBeTruthy();
@@ -22,23 +23,13 @@ describe('Form', () => {
 
     } );
 
-    it('All items must be required', () => {
-        
-        const control = [component.form.get('brand'), 
-                        component.form.get('model'),
-                        component.form.get('year'),
-                        component.form.get('price')];
-
-        
-
-        for (let index = 0; index < control.length; index++) {
-            control[index].setValue('')
-        }; 
-                    
-        
-
-        expect(control[0].valid && control[1].valid && control[2].valid && control[3].valid).toBeFalsy();
-
+    it('Controls brand, model, year and price must be required.', () => {
+        const  form =  component.form;
+        form.get('brand').setValue('Ford');
+        form.get('model').setValue('Escort');               
+        form.get('year').setValue('2019');
+        form.get('price').setValue('10000');
+        expect(form.invalid).toEqual(false);
 
     });
 
