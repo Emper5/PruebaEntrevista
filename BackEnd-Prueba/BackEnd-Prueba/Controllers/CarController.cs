@@ -27,53 +27,7 @@ namespace BackEnd_Prueba.Controllers
             return await _context.Car.ToListAsync();
         }
 
-        // GET: api/Car/5
-        [HttpGet("{id}")]
-        
-        public async Task<ActionResult<CarModel>> GetCar(int id)
-        {
-            var car = await _context.Car.FindAsync(id);
-
-            if (car == null)
-            {
-                return NotFound();
-            }
-
-            return car;
-        }
-
-        // PUT: api/Car/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCar(int id, CarModel car)
-        {
-            if (id != car.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(car).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CarExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+               
         // POST: api/Car
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
