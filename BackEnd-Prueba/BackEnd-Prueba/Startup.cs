@@ -1,3 +1,4 @@
+using BackEnd_Prueba.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,8 +25,10 @@ namespace BackEnd_Prueba
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDBContext> (Options => Options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
        
             services.AddControllers();
+        
             // Configure CORS
             services.AddCors(options =>
             {
@@ -56,7 +59,8 @@ namespace BackEnd_Prueba
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretsecretsecretsecretsecretsecretsecretsecret"))
                 };
             });
-        
+            services.AddSingleton<IJwtAuthenticationManager, JwtAuthenticationManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +74,7 @@ namespace BackEnd_Prueba
             app.UseHttpsRedirection();
             app.UseCors("EnableCORS");
              app.UseRouting();
+
 
             app.UseAuthentication();
             app.UseAuthorization();

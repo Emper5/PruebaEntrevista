@@ -6,17 +6,16 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace BackEnd_Prueba
+namespace BackEnd_Prueba.Authentication
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
         private readonly IDictionary<string, string> users = new Dictionary<string, string>
-        { { "test1", "password1" }, { "test2", "password2" } };
-        private readonly string key;
+        { { @"Aiden.Lopez", @"1234" } };
+        private readonly SymmetricSecurityKey _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretsecretsecretsecretsecretsecretsecretsecret"));
 
-        public JwtAuthenticationManager(string key)
+        public JwtAuthenticationManager()
         {
-            this.key = key;
         }
 
         public string Authenticate(string username, string password)
@@ -27,9 +26,9 @@ namespace BackEnd_Prueba
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenkey = Encoding.ASCII.GetBytes(key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+            
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, username)
@@ -37,8 +36,8 @@ namespace BackEnd_Prueba
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials =
                 new SigningCredentials(
-                    new SymmetricSecurityKey(tokenkey),
-                    SecurityAlgorithms.HmacSha256Signature)
+                   _key,
+                   SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

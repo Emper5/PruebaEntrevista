@@ -1,5 +1,5 @@
 ﻿
-namespace BackEnd_Prueba
+namespace BackEnd_Prueba.Authentication
 {
     public interface IJwtAuthenticationManager
     {
