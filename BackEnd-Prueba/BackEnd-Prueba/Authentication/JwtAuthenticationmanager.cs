@@ -14,10 +14,7 @@ namespace BackEnd_Prueba.Authentication
         { { @"Aiden.Lopez", @"1234" } };
         private readonly SymmetricSecurityKey _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretsecretsecretsecretsecretsecretsecretsecret"));
 
-        public JwtAuthenticationManager()
-        {
-        }
-
+      
         public string Authenticate(string username, string password)
         {
             if (!users.Any(u => u.Key == username && u.Value == password))
